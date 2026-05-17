@@ -1,0 +1,79 @@
+{
+  "scan_history": [
+    {
+      "timestamp_utc": "2026-05-17T11:50:10.068095+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-17T11:50:10.223193+00:00",
+      "source": "data/safe_pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-17T11:57:25.756088+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-17T11:57:25.966875+00:00",
+      "source": "data/safe_pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    }
+  ],
+  "known_risks": [
+    {
+      "timestamp_utc": "2026-05-17T11:50:10.068095+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-17T11:57:25.756088+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    }
+  ],
+  "team_patterns": []
+}

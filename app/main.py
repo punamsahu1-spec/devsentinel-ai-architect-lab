@@ -1,6 +1,8 @@
 from pathlib import Path
 from guardrails import scan_diff_for_secrets, validate_engineering_scope
 from audit import write_audit_log
+from memory_store import add_scan_event, get_recent_scan_history
+from context_builder import build_context_package
 
 
 def read_pr_diff(file_path: str) -> str:
@@ -16,6 +18,20 @@ def read_pr_diff(file_path: str) -> str:
     return path.read_text(encoding="utf-8")
 
 
+def persist_result(result: dict) -> None:
+    """
+    Saves the result to audit log and memory.
+    """
+    write_audit_log(result)
+
+    add_scan_event(
+        source=result["source"],
+        decision=result["decision"],
+        reason=result["reason"],
+        findings=result["findings"]
+    )
+
+
 def run_devsentinel(query: str, diff_text: str, source_name: str) -> dict:
     """
     Main decision function for DevSentinel.
@@ -25,7 +41,7 @@ def run_devsentinel(query: str, diff_text: str, source_name: str) -> dict:
     2. Is there any prompt injection?
     3. Are there any leaked secrets in the PR diff?
     4. Should the PR be allowed or blocked?
-    5. Write an audit log for traceability.
+    5. Write audit log and memory.
     """
 
     scope_ok, scope_message = validate_engineering_scope(query)
@@ -37,7 +53,7 @@ def run_devsentinel(query: str, diff_text: str, source_name: str) -> dict:
             "reason": scope_message,
             "findings": []
         }
-        write_audit_log(result)
+        persist_result(result)
         return result
 
     secrets_found, findings = scan_diff_for_secrets(diff_text)
@@ -49,7 +65,7 @@ def run_devsentinel(query: str, diff_text: str, source_name: str) -> dict:
             "reason": "Secrets found in PR diff",
             "findings": findings
         }
-        write_audit_log(result)
+        persist_result(result)
         return result
 
     result = {
@@ -59,7 +75,7 @@ def run_devsentinel(query: str, diff_text: str, source_name: str) -> dict:
         "findings": []
     }
 
-    write_audit_log(result)
+    persist_result(result)
     return result
 
 
@@ -70,6 +86,32 @@ def print_result(test_name: str, result: dict) -> None:
     print(f"\n{test_name}")
     print("-" * len(test_name))
     print(result)
+
+
+def print_recent_memory() -> None:
+    """
+    Prints recent scan memory.
+    """
+    print("\nRecent Memory")
+    print("-------------")
+    for event in get_recent_scan_history(limit=5):
+        print({
+            "source": event["source"],
+            "decision": event["decision"],
+            "reason": event["reason"]
+        })
+
+
+def print_context_package(query: str, result: dict) -> None:
+    """
+    Builds and prints the context package.
+    """
+    recent_memory = get_recent_scan_history(limit=5)
+    context_package = build_context_package(query, result, recent_memory)
+
+    print("\nContext Package")
+    print("---------------")
+    print(context_package)
 
 
 if __name__ == "__main__":
@@ -84,3 +126,7 @@ if __name__ == "__main__":
     safe_diff = read_pr_diff(safe_file)
     safe_result = run_devsentinel(sample_query, safe_diff, safe_file)
     print_result("Safe PR Diff Test", safe_result)
+
+    print_recent_memory()
+
+    print_context_package(sample_query, unsafe_result)
