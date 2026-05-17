@@ -1,0 +1,4 @@
++ def connect_to_database():
++     password = "mysecretpassword123"
++     database_url = "postgresql://admin:adminpass@localhost:5432/appdb"
++     return database_url

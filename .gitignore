@@ -216,3 +216,5 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# DevSentinel runtime logs
+logs/*.jsonl
