@@ -4,6 +4,7 @@ from audit import write_audit_log
 from memory_store import add_scan_event, get_recent_scan_history
 from context_builder import build_context_package
 from policy_retriever import get_policy_for_findings
+from response_generator import generate_developer_response
 
 def read_pr_diff(file_path: str) -> str:
     """
@@ -104,7 +105,7 @@ def print_recent_memory() -> None:
 
 def print_context_package(query: str, result: dict) -> None:
     """
-    Builds and prints the context package with retrieved policy context.
+    Builds the context package, prints it, and generates a developer response.
     """
     recent_memory = get_recent_scan_history(limit=5)
     policy_sections = get_policy_for_findings(result.get("findings", []))
@@ -116,10 +117,15 @@ def print_context_package(query: str, result: dict) -> None:
         policy_sections=policy_sections
     )
 
+    developer_response = generate_developer_response(context_package)
+
     print("\nContext Package")
     print("---------------")
     print(context_package)
 
+    print("\nDeveloper Response")
+    print("------------------")
+    print(developer_response)
 if __name__ == "__main__":
     sample_query = "Can you review this API deployment error before merge?"
 
