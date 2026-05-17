@@ -30,7 +30,15 @@ class TestContextBuilder(unittest.TestCase):
             }
         ]
 
-        context = build_context_package(query, result, recent_memory)
+        policy_sections = [
+            {
+                "title": "Secret Management Policy",
+                "content": "Developers must never hardcode passwords or database connection strings.",
+                "score": 3
+            }
+        ]
+
+        context = build_context_package(query, result, recent_memory, policy_sections)
 
         self.assertEqual(
             context["system_purpose"],
@@ -42,7 +50,8 @@ class TestContextBuilder(unittest.TestCase):
         self.assertEqual(context["current_scan"]["reason"], "Secrets found in PR diff")
         self.assertEqual(context["current_scan"]["findings_summary"][0]["type"], "password_assign")
         self.assertEqual(context["recent_memory_summary"][0]["decision"], "BLOCK")
-        self.assertIn("decision", context["response_instruction"]["must_include"])
+        self.assertEqual(context["retrieved_policy_context"][0]["title"], "Secret Management Policy")
+        self.assertIn("policy_reference", context["response_instruction"]["must_include"])
         self.assertIn("recommended_next_steps", context["response_instruction"]["must_include"])
 
 

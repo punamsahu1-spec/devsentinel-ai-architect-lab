@@ -3,7 +3,7 @@ from guardrails import scan_diff_for_secrets, validate_engineering_scope
 from audit import write_audit_log
 from memory_store import add_scan_event, get_recent_scan_history
 from context_builder import build_context_package
-
+from policy_retriever import get_policy_for_findings
 
 def read_pr_diff(file_path: str) -> str:
     """
@@ -104,15 +104,21 @@ def print_recent_memory() -> None:
 
 def print_context_package(query: str, result: dict) -> None:
     """
-    Builds and prints the context package.
+    Builds and prints the context package with retrieved policy context.
     """
     recent_memory = get_recent_scan_history(limit=5)
-    context_package = build_context_package(query, result, recent_memory)
+    policy_sections = get_policy_for_findings(result.get("findings", []))
+
+    context_package = build_context_package(
+        query=query,
+        result=result,
+        recent_memory=recent_memory,
+        policy_sections=policy_sections
+    )
 
     print("\nContext Package")
     print("---------------")
     print(context_package)
-
 
 if __name__ == "__main__":
     sample_query = "Can you review this API deployment error before merge?"
