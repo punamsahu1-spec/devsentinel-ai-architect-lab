@@ -4,7 +4,7 @@ from audit import write_audit_log
 from memory_store import add_scan_event, get_recent_scan_history
 from context_builder import build_context_package
 from policy_retriever import get_policy_for_findings
-from response_generator import generate_developer_response
+from llm_response_generator import generate_llm_or_fallback_response
 
 def read_pr_diff(file_path: str) -> str:
     """
@@ -117,7 +117,7 @@ def print_context_package(query: str, result: dict) -> None:
         policy_sections=policy_sections
     )
 
-    developer_response = generate_developer_response(context_package)
+    developer_response = generate_llm_or_fallback_response(context_package)
 
     print("\nContext Package")
     print("---------------")

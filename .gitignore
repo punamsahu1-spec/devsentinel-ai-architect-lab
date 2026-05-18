@@ -218,3 +218,5 @@ __marimo__/
 .streamlit/secrets.toml
 # DevSentinel runtime logs
 logs/*.jsonl
+# Local environment variables and secrets
+.env

@@ -215,6 +215,87 @@
       "decision": "ALLOW",
       "reason": "No secrets found and query is engineering-related",
       "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-17T15:27:52.966375+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-17T15:27:53.121789+00:00",
+      "source": "data/safe_pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-17T15:29:48.628977+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-17T15:29:48.956405+00:00",
+      "source": "data/safe_pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-18T05:44:37.699430+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-18T05:44:37.728227+00:00",
+      "source": "data/safe_pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
     }
   ],
   "known_risks": [
@@ -283,6 +364,33 @@
     },
     {
       "timestamp_utc": "2026-05-17T14:59:28.418860+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-17T15:27:52.966375+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-17T15:29:48.628977+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-18T05:44:37.699430+00:00",
       "source": "data/sample_pr_diff.txt",
       "reason": "Secrets found in PR diff",
       "finding_types": [
