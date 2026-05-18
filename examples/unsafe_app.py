@@ -1,4 +1,10 @@
+import os
+
+
 def connect_to_database():
-    password = "mysecretpassword123"
-    database_url = "postgresql://admin:adminpass@localhost:5432/appdb"
+    database_url = os.getenv("DATABASE_URL")
+
+    if not database_url:
+        raise ValueError("DATABASE_URL is not configured")
+
     return database_url
