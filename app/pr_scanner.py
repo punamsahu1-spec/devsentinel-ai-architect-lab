@@ -1,3 +1,4 @@
+import json
 import sys
 from pathlib import Path
 
@@ -5,6 +6,9 @@ try:
     from .main import run_devsentinel
 except ImportError:
     from main import run_devsentinel
+
+
+RESULT_PATH = Path("devsentinel_result.json")
 
 
 def read_diff_file(diff_file_path: str) -> str:
@@ -17,6 +21,13 @@ def read_diff_file(diff_file_path: str) -> str:
         raise FileNotFoundError(f"Diff file not found: {diff_file_path}")
 
     return path.read_text(encoding="utf-8")
+
+
+def write_result_file(result: dict) -> None:
+    """
+    Writes scan result to devsentinel_result.json for GitHub Actions PR comments.
+    """
+    RESULT_PATH.write_text(json.dumps(result, indent=2), encoding="utf-8")
 
 
 def print_pr_scan_result(result: dict) -> None:
@@ -62,6 +73,7 @@ def main() -> int:
         source_name=diff_file_path
     )
 
+    write_result_file(result)
     print_pr_scan_result(result)
 
     if result["decision"] == "BLOCK":
