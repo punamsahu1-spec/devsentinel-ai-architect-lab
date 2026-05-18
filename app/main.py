@@ -1,11 +1,19 @@
 from pathlib import Path
-from guardrails import scan_diff_for_secrets, validate_engineering_scope
-from audit import write_audit_log
-from memory_store import add_scan_event, get_recent_scan_history
-from context_builder import build_context_package
-from policy_retriever import get_policy_for_findings
-from llm_response_generator import generate_llm_or_fallback_response
 
+try:
+    from .guardrails import scan_diff_for_secrets, validate_engineering_scope
+    from .audit import write_audit_log
+    from .memory_store import add_scan_event, get_recent_scan_history
+    from .context_builder import build_context_package
+    from .policy_retriever import get_policy_for_findings
+    from .llm_response_generator import generate_llm_or_fallback_response
+except ImportError:
+    from guardrails import scan_diff_for_secrets, validate_engineering_scope
+    from audit import write_audit_log
+    from memory_store import add_scan_event, get_recent_scan_history
+    from context_builder import build_context_package
+    from policy_retriever import get_policy_for_findings
+    from llm_response_generator import generate_llm_or_fallback_response
 def read_pr_diff(file_path: str) -> str:
     """
     Reads PR diff text from a local file.

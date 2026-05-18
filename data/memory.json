@@ -296,6 +296,27 @@
       "decision": "ALLOW",
       "reason": "No secrets found and query is engineering-related",
       "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-18T06:26:54.766635+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpgk3xs_do\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-18T06:26:54.873895+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpsmizwpy9\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
     }
   ],
   "known_risks": [
@@ -396,6 +417,14 @@
       "finding_types": [
         "password_assign",
         "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-18T06:26:54.873895+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpsmizwpy9\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
       ]
     }
   ],

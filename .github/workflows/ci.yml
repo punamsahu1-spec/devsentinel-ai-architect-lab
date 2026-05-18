@@ -30,3 +30,35 @@ jobs:
       - name: Run unit tests
         run: |
           python -m unittest discover tests
+
+  pr-security-scan:
+    name: DevSentinel PR Security Scan
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Create PR diff file
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          git diff origin/${{ github.base_ref }}...HEAD > pr_diff.txt
+          echo "Generated PR diff:"
+          wc -l pr_diff.txt
+
+      - name: Run DevSentinel PR scan
+        run: |
+          python -m app.pr_scanner pr_diff.txt
