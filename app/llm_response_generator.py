@@ -6,8 +6,19 @@ from dotenv import load_dotenv
 
 try:
     from .response_generator import generate_developer_response
+    from .prompts import (
+        DEVSENTINEL_SYSTEM_PROMPT,
+        DEVSENTINEL_JSON_OUTPUT_SCHEMA,
+        DEVSENTINEL_USER_PROMPT_TEMPLATE,
+    )
 except ImportError:
     from response_generator import generate_developer_response
+    from prompts import (
+        DEVSENTINEL_SYSTEM_PROMPT,
+        DEVSENTINEL_JSON_OUTPUT_SCHEMA,
+        DEVSENTINEL_USER_PROMPT_TEMPLATE,
+    )
+
 
 load_dotenv()
 
@@ -21,30 +32,15 @@ def is_gemini_enabled() -> bool:
 
 def build_gemini_prompt(context_package: Dict[str, Any]) -> str:
     """
-    Builds a strict prompt for Gemini using the curated context package.
+    Builds a strict Gemini prompt using separated system and user prompt templates.
     """
 
-    return f"""
-You are DevSentinel, an enterprise AI security copilot for pull request safety review.
+    user_prompt = DEVSENTINEL_USER_PROMPT_TEMPLATE.format(
+        json_schema=DEVSENTINEL_JSON_OUTPUT_SCHEMA,
+        context_package=json.dumps(context_package, indent=2),
+    )
 
-Use only the provided context.
-Do not invent policies.
-Do not add facts that are not present in the context.
-Return only valid JSON.
-Do not wrap the JSON in markdown.
-
-Required JSON format:
-{{
-  "decision": "ALLOW | BLOCK | HUMAN_REVIEW",
-  "reason": "short reason",
-  "policy_reference": ["policy section names used"],
-  "risk_summary": ["short risk summary"],
-  "recommended_next_steps": ["actionable next steps for developer"]
-}}
-
-Context:
-{json.dumps(context_package, indent=2)}
-"""
+    return f"{DEVSENTINEL_SYSTEM_PROMPT.strip()}\n\n{user_prompt.strip()}"
 
 
 def parse_gemini_json(text: str) -> Dict[str, Any]:
@@ -87,7 +83,7 @@ def generate_llm_or_fallback_response(context_package: Dict[str, Any]) -> Dict[s
 
         response = client.models.generate_content(
             model=model_name,
-            contents=prompt
+            contents=prompt,
         )
 
         llm_response = parse_gemini_json(response.text)
