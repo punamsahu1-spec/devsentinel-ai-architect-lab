@@ -4,11 +4,14 @@ from pathlib import Path
 
 try:
     from .main import run_devsentinel
+    from .redactor import redact_secrets
 except ImportError:
     from main import run_devsentinel
+    from redactor import redact_secrets
 
 
 RESULT_PATH = Path("devsentinel_result.json")
+REDACTED_DIFF_PATH = Path("devsentinel_redacted_diff.txt")
 
 
 def read_diff_file(diff_file_path: str) -> str:
@@ -30,6 +33,14 @@ def write_result_file(result: dict) -> None:
     RESULT_PATH.write_text(json.dumps(result, indent=2), encoding="utf-8")
 
 
+def write_redacted_diff(diff_text: str) -> None:
+    """
+    Writes a redacted copy of the PR diff for safe debugging and review.
+    """
+    redacted_text = redact_secrets(diff_text)
+    REDACTED_DIFF_PATH.write_text(redacted_text, encoding="utf-8")
+
+
 def print_pr_scan_result(result: dict) -> None:
     """
     Prints PR scan result in a readable CI-friendly format.
@@ -47,6 +58,8 @@ def print_pr_scan_result(result: dict) -> None:
             print(f"    Action: {finding.get('action')}")
     else:
         print(f"ALLOW: {result.get('reason')}")
+
+    print(f"\nRedacted diff written to: {REDACTED_DIFF_PATH}")
 
 
 def main() -> int:
@@ -66,6 +79,9 @@ def main() -> int:
     query = "Review this pull request diff before merge."
 
     diff_text = read_diff_file(diff_file_path)
+
+    # Redact raw secret values before creating any safe debug artifact.
+    write_redacted_diff(diff_text)
 
     result = run_devsentinel(
         query=query,
