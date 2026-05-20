@@ -317,6 +317,412 @@
           "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
         }
       ]
+    },
+    {
+      "timestamp_utc": "2026-05-18T07:20:42.585833+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpsto1utji\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-18T07:20:42.705227+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp4of28_3z\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-19T17:11:13.275670+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp4hjhz2ge\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-19T17:11:13.331642+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpr1n2xvhp\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T04:46:19.573186+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpttbbtwjf\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T04:46:19.610656+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpj4y8gzbv\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T04:48:23.687817+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T04:54:34.383829+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T04:58:12.545207+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpms5biqpc\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T04:58:12.575669+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpprvzozcx\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T05:06:53.745482+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp7_1qcdny\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T05:06:53.779133+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpq3agv1cq\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T05:08:58.864219+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp9v691cg9\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T05:08:58.894753+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpz8xz_cnd\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T05:30:20.659374+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T05:30:20.728525+00:00",
+      "source": "data/safe_pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T06:56:27.569538+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp9_yw169s\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T06:56:27.681709+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpl9t24b7n\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T07:19:33.456875+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp5j6qr2ce\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T07:19:33.514597+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp728l7lrs\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T07:26:31.982954+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpcc1dfm9t\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T07:26:32.051661+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp7xsszg7t\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:04:09.647669+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:04:09.679351+00:00",
+      "source": "data/safe_pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:06:50.241037+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:06:50.368625+00:00",
+      "source": "data/safe_pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:33:14.525004+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:33:14.699509+00:00",
+      "source": "data/safe_pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:40:16.679062+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp820zm55n\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:40:16.817593+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpb8383otw\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T11:27:13.056629+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        },
+        {
+          "type": "connection_string",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T11:27:13.084550+00:00",
+      "source": "data/safe_pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T11:58:20.761194+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp48ify6vb\\pr_diff.txt",
+      "decision": "ALLOW",
+      "reason": "No secrets found and query is engineering-related",
+      "findings": []
+    },
+    {
+      "timestamp_utc": "2026-05-20T11:58:20.804194+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpwz3wd9ak\\pr_diff.txt",
+      "decision": "BLOCK",
+      "reason": "Secrets found in PR diff",
+      "findings": [
+        {
+          "type": "password_assign",
+          "count": 1,
+          "severity": "CRITICAL",
+          "action": "BLOCK_MERGE \u2014 remove secret and rotate immediately"
+        }
+      ]
     }
   ],
   "known_risks": [
@@ -422,6 +828,157 @@
     {
       "timestamp_utc": "2026-05-18T06:26:54.873895+00:00",
       "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpsmizwpy9\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-18T07:20:42.705227+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp4of28_3z\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-19T17:11:13.331642+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpr1n2xvhp\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T04:46:19.610656+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpj4y8gzbv\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T04:48:23.687817+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T04:54:34.383829+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T04:58:12.575669+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpprvzozcx\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T05:06:53.779133+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpq3agv1cq\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T05:08:58.894753+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpz8xz_cnd\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T05:30:20.659374+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T06:56:27.681709+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpl9t24b7n\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T07:19:33.514597+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp728l7lrs\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T07:26:32.051661+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp7xsszg7t\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:04:09.647669+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:06:50.241037+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:33:14.525004+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T08:40:16.817593+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpb8383otw\\pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T11:27:13.056629+00:00",
+      "source": "data/sample_pr_diff.txt",
+      "reason": "Secrets found in PR diff",
+      "finding_types": [
+        "password_assign",
+        "connection_string"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-05-20T11:58:20.804194+00:00",
+      "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpwz3wd9ak\\pr_diff.txt",
       "reason": "Secrets found in PR diff",
       "finding_types": [
         "password_assign"

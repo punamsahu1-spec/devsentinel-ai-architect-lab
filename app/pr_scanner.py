@@ -1,10 +1,17 @@
+import json
 import sys
 from pathlib import Path
 
 try:
     from .main import run_devsentinel
+    from .redactor import redact_secrets
 except ImportError:
     from main import run_devsentinel
+    from redactor import redact_secrets
+
+
+RESULT_PATH = Path("devsentinel_result.json")
+REDACTED_DIFF_PATH = Path("devsentinel_redacted_diff.txt")
 
 
 def read_diff_file(diff_file_path: str) -> str:
@@ -17,6 +24,21 @@ def read_diff_file(diff_file_path: str) -> str:
         raise FileNotFoundError(f"Diff file not found: {diff_file_path}")
 
     return path.read_text(encoding="utf-8")
+
+
+def write_result_file(result: dict) -> None:
+    """
+    Writes scan result to devsentinel_result.json for GitHub Actions PR comments.
+    """
+    RESULT_PATH.write_text(json.dumps(result, indent=2), encoding="utf-8")
+
+
+def write_redacted_diff(diff_text: str) -> None:
+    """
+    Writes a redacted copy of the PR diff for safe debugging and review.
+    """
+    redacted_text = redact_secrets(diff_text)
+    REDACTED_DIFF_PATH.write_text(redacted_text, encoding="utf-8")
 
 
 def print_pr_scan_result(result: dict) -> None:
@@ -37,6 +59,8 @@ def print_pr_scan_result(result: dict) -> None:
     else:
         print(f"ALLOW: {result.get('reason')}")
 
+    print(f"\nRedacted diff written to: {REDACTED_DIFF_PATH}")
+
 
 def main() -> int:
     """
@@ -56,12 +80,16 @@ def main() -> int:
 
     diff_text = read_diff_file(diff_file_path)
 
+    # Redact raw secret values before creating any safe debug artifact.
+    write_redacted_diff(diff_text)
+
     result = run_devsentinel(
         query=query,
         diff_text=diff_text,
         source_name=diff_file_path
     )
 
+    write_result_file(result)
     print_pr_scan_result(result)
 
     if result["decision"] == "BLOCK":

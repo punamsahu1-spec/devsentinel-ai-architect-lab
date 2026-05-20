@@ -35,6 +35,10 @@ jobs:
     name: DevSentinel PR Security Scan
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
 
     steps:
       - name: Checkout repository
@@ -60,5 +64,23 @@ jobs:
           wc -l pr_diff.txt
 
       - name: Run DevSentinel PR scan
+        id: devsentinel_scan
+        continue-on-error: true
         run: |
           python -m app.pr_scanner pr_diff.txt
+
+      - name: Build PR comment
+        run: |
+          python -m app.pr_comment_builder
+
+      - name: Post DevSentinel PR comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: devsentinel-security-review
+          path: devsentinel_pr_comment.md
+
+      - name: Fail workflow if DevSentinel blocked PR
+        if: steps.devsentinel_scan.outcome == 'failure'
+        run: |
+          echo "DevSentinel blocked this PR."
+          exit 1
