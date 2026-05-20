@@ -5,15 +5,19 @@ try:
     from .audit import write_audit_log
     from .memory_store import add_scan_event, get_recent_scan_history
     from .context_builder import build_context_package
-    from .policy_retriever import get_policy_for_findings
     from .llm_response_generator import generate_llm_or_fallback_response
+    from .vector_rag import retrieve_top_k_policy_chunks
+    from .query_expander import expand_query_with_llm_or_fallback
 except ImportError:
     from guardrails import scan_diff_for_secrets, validate_engineering_scope
     from audit import write_audit_log
     from memory_store import add_scan_event, get_recent_scan_history
     from context_builder import build_context_package
-    from policy_retriever import get_policy_for_findings
     from llm_response_generator import generate_llm_or_fallback_response
+    from vector_rag import retrieve_top_k_policy_chunks
+    from query_expander import expand_query_with_llm_or_fallback
+
+
 def read_pr_diff(file_path: str) -> str:
     """
     Reads PR diff text from a local file.
@@ -37,7 +41,7 @@ def persist_result(result: dict) -> None:
         source=result["source"],
         decision=result["decision"],
         reason=result["reason"],
-        findings=result["findings"]
+        findings=result["findings"],
     )
 
 
@@ -52,7 +56,6 @@ def run_devsentinel(query: str, diff_text: str, source_name: str) -> dict:
     4. Should the PR be allowed or blocked?
     5. Write audit log and memory.
     """
-
     scope_ok, scope_message = validate_engineering_scope(query)
 
     if not scope_ok:
@@ -60,7 +63,7 @@ def run_devsentinel(query: str, diff_text: str, source_name: str) -> dict:
             "source": source_name,
             "decision": "BLOCK",
             "reason": scope_message,
-            "findings": []
+            "findings": [],
         }
         persist_result(result)
         return result
@@ -72,7 +75,7 @@ def run_devsentinel(query: str, diff_text: str, source_name: str) -> dict:
             "source": source_name,
             "decision": "BLOCK",
             "reason": "Secrets found in PR diff",
-            "findings": findings
+            "findings": findings,
         }
         persist_result(result)
         return result
@@ -81,7 +84,7 @@ def run_devsentinel(query: str, diff_text: str, source_name: str) -> dict:
         "source": source_name,
         "decision": "ALLOW",
         "reason": "No secrets found and query is engineering-related",
-        "findings": []
+        "findings": [],
     }
 
     persist_result(result)
@@ -103,12 +106,47 @@ def print_recent_memory() -> None:
     """
     print("\nRecent Memory")
     print("-------------")
+
     for event in get_recent_scan_history(limit=5):
         print({
             "source": event["source"],
             "decision": event["decision"],
-            "reason": event["reason"]
+            "reason": event["reason"],
         })
+
+
+def build_policy_query_from_result(result: dict) -> str:
+    """
+    Builds a deterministic base retrieval query from scan findings.
+    This is used before optional LLM-assisted query expansion.
+    """
+    findings = result.get("findings", [])
+
+    if not findings:
+        return "safe configuration environment variables approved secret stores pull request review"
+
+    finding_types = [
+        finding.get("type", "")
+        for finding in findings
+    ]
+
+    return " ".join([
+        "pull request security review",
+        "secret management policy",
+        "hardcode passwords",
+        "hardcoded password",
+        "api keys",
+        "access tokens",
+        "private keys",
+        "database connection strings",
+        "secret exposed",
+        "pull request must be blocked",
+        "merge must be blocked",
+        "rotated immediately",
+        "credential rotation",
+        "remove secret from code",
+        *finding_types,
+    ])
 
 
 def print_context_package(query: str, result: dict) -> None:
@@ -116,16 +154,38 @@ def print_context_package(query: str, result: dict) -> None:
     Builds the context package, prints it, and generates a developer response.
     """
     recent_memory = get_recent_scan_history(limit=5)
-    policy_sections = get_policy_for_findings(result.get("findings", []))
+
+    base_policy_query = build_policy_query_from_result(result)
+
+    finding_types = [
+        finding.get("type", "")
+        for finding in result.get("findings", [])
+    ]
+
+    expanded_query_result = expand_query_with_llm_or_fallback(
+        finding_types=finding_types,
+        base_query=base_policy_query,
+    )
+
+    policy_query = expanded_query_result["expanded_query"]
+
+    policy_sections = retrieve_top_k_policy_chunks(
+        query=policy_query,
+        top_k=2,
+    )
 
     context_package = build_context_package(
         query=query,
         result=result,
         recent_memory=recent_memory,
-        policy_sections=policy_sections
+        policy_sections=policy_sections,
     )
 
     developer_response = generate_llm_or_fallback_response(context_package)
+
+    print("\nQuery Expansion")
+    print("---------------")
+    print(expanded_query_result)
 
     print("\nContext Package")
     print("---------------")
@@ -134,6 +194,8 @@ def print_context_package(query: str, result: dict) -> None:
     print("\nDeveloper Response")
     print("------------------")
     print(developer_response)
+
+
 if __name__ == "__main__":
     sample_query = "Can you review this API deployment error before merge?"
 

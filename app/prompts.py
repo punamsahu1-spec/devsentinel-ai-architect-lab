@@ -59,3 +59,31 @@ Return only JSON:
   "reason": "short reason"
 }}
 """
+QUERY_EXPANSION_PROMPT_TEMPLATE = """
+You are a retrieval query expansion assistant for DevSentinel.
+
+Your job is to convert technical scanner findings into a concise policy-search query.
+
+Rules:
+1. Use only the provided finding types and base query.
+2. Do not invent unrelated compliance frameworks.
+3. Focus on policy language, security risk, remediation, and PR governance.
+4. Return only valid JSON.
+5. Do not wrap JSON in markdown.
+
+Finding types:
+{finding_types}
+
+Base query:
+{base_query}
+
+Available policy titles:
+{policy_titles}
+
+Return only JSON:
+{{
+  "expanded_query": "short search query for policy retrieval",
+  "search_concepts": ["concept 1", "concept 2", "concept 3"],
+  "reason": "short reason for expansion"
+}}
+"""
