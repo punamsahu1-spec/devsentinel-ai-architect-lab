@@ -8,6 +8,7 @@ try:
     from .llm_response_generator import generate_llm_or_fallback_response
     from .vector_rag import retrieve_top_k_policy_chunks
     from .query_expander import expand_query_with_llm_or_fallback
+    from .reranker import rerank_policy_chunks
 except ImportError:
     from guardrails import scan_diff_for_secrets, validate_engineering_scope
     from audit import write_audit_log
@@ -16,6 +17,7 @@ except ImportError:
     from llm_response_generator import generate_llm_or_fallback_response
     from vector_rag import retrieve_top_k_policy_chunks
     from query_expander import expand_query_with_llm_or_fallback
+    from reranker import rerank_policy_chunks
 
 
 def read_pr_diff(file_path: str) -> str:
@@ -48,13 +50,6 @@ def persist_result(result: dict) -> None:
 def run_devsentinel(query: str, diff_text: str, source_name: str) -> dict:
     """
     Main decision function for DevSentinel.
-
-    It checks:
-    1. Is the query engineering-related?
-    2. Is there any prompt injection?
-    3. Are there any leaked secrets in the PR diff?
-    4. Should the PR be allowed or blocked?
-    5. Write audit log and memory.
     """
     scope_ok, scope_message = validate_engineering_scope(query)
 
@@ -169,8 +164,14 @@ def print_context_package(query: str, result: dict) -> None:
 
     policy_query = expanded_query_result["expanded_query"]
 
-    policy_sections = retrieve_top_k_policy_chunks(
+    candidate_policy_sections = retrieve_top_k_policy_chunks(
         query=policy_query,
+        top_k=5,
+    )
+
+    policy_sections = rerank_policy_chunks(
+        query=policy_query,
+        chunks=candidate_policy_sections,
         top_k=2,
     )
 
@@ -186,6 +187,14 @@ def print_context_package(query: str, result: dict) -> None:
     print("\nQuery Expansion")
     print("---------------")
     print(expanded_query_result)
+
+    print("\nRetrieved Policy Candidates")
+    print("---------------------------")
+    print(candidate_policy_sections)
+
+    print("\nReranked Policy Context")
+    print("-----------------------")
+    print(policy_sections)
 
     print("\nContext Package")
     print("---------------")
